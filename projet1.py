@@ -27,5 +27,18 @@ def Puissance_Train ():
         P.append((M*g*ma.sin(alpha[i])+resistance_mouvement[i])*V[i])
     return(P)
 
+#Définition des variables pour le circuit électrique
+
+Iss1 = #courant provenant du cable venant de la SS1
+Iss2 = #courant provenant du cable venant de la SS2
+Ri = #résistance interne des SS
+Rss1 = #résistance linéique cable entre SS1 et train (en Ohm par m)
+Rss2 = 0.016 * 10**(-3) #resistance lineique cable entre train et SS2 (en Ohm par m)
+Ud0 = 835 #en V
+L = 5000 #en m, distance entre chaque sous-station
+
 #Calcul Puissance Électrique
+
 def Puissance_Electrique ():
+    U_train = 
+    I_train
