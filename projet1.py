@@ -43,5 +43,20 @@ def Puissance_Train():
         P.append((M*A[i] + M*g*ma.sin(alpha[i]) - frottements()[i]) * V[i])
     return(P)
 
-#print(frottement_air())
+
 ##Calcul Puissance Électrique##
+
+#Définition des variables pour le circuit électrique
+Is1 = #courant provenant du cable venant de la sous-station (SS) 1
+Is2 = #courant provenant du cable venant de la SS2
+Rs1 = #résistance interne des SS
+Rs2 = Rs1
+Rl = 0.016 * 10**(-3)#résistance linéique cable entre SS1 et train (en Ohm par m)
+Ud0 = 835 #en V
+L = 5000 #en m, distance entre chaque sous-station
+
+#Calcul Puissance Électrique
+def Puissance_Electrique (Is1, Is2, position):
+    U_train = Ud0-Is2/(Rs2 + Rl * position)
+    I_train = Is1 + Is2
+    return U_train * I_train
