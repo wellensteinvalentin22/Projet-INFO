@@ -41,16 +41,17 @@ def force_freinage(a,V): #vitesse definie
 
 #Définition des variables pour le circuit électrique
 
-Iss1 = #courant provenant du cable venant de la SS1
-Iss2 = #courant provenant du cable venant de la SS2
-Ri = #résistance interne des SS
-Rss1 = #résistance linéique cable entre SS1 et train (en Ohm par m)
-Rss2 = 0.016 * 10**(-3) #resistance lineique cable entre train et SS2 (en Ohm par m)
+Is1 = #courant provenant du cable venant de la sous-station (SS) 1
+Is2 = #courant provenant du cable venant de la SS2
+Rs1 = #résistance interne des SS
+Rs2 = Rs1
+Rl = 0,016 * 10**(-3)#résistance linéique cable entre SS1 et train (en Ohm par m)
 Ud0 = 835 #en V
 L = 5000 #en m, distance entre chaque sous-station
 
 #Calcul Puissance Électrique
 
-def Puissance_Electrique ():
-    U_train = 
-    I_train
+def Puissance_Electrique (Is1, Is2, position):
+    U_train = Ud0-Is2/(Rs2 + Rl * position)
+    I_train = Is1 + Is2
+    return U_train * I_train
