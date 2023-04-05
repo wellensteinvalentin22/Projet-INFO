@@ -11,12 +11,12 @@ tau = 1  # pas de temps
 ##Calcul de la vitesse##
 # Hypothèse : profil de vitesse trapézoïdal, vitesse max de 60 km/h atteinte au 100ème pas de temps. On freine au 400 pas de temps.
 V = []
-for i in range(100):
-    V.append(0.6 / 3.6 * i)
-for i in range(300):
-    V.append(60 / 3.6)
-for i in range(100):
-    V.append(60 / 3.6 - 0.6 / 3.6 * i)
+for i in range(25):
+    V.append(0.8 * tau * i)
+for i in range(450):
+    V.append(20)
+for i in range(25):
+    V.append(20 - 0.8 * tau * i)
 
 X = []
 position = 0
@@ -26,12 +26,12 @@ for i in range(500):
 
 
 A = []
-for i in range(100):
-    A.append(0.6 / (3.6**3.6 * 1000))
-for i in range(300):
+for i in range(25):
+    A.append(0.8)
+for i in range(450):
     A.append(0)
-for i in range(400, 500):
-    A.append(-0.6 / (3.6**3.6 * 1000))
+for i in range(25):
+    A.append(-0.8)
 
 ##Calcul Puissance Train##
 def frottements():
@@ -45,12 +45,14 @@ def frottements():
 
 def Puissance_Train():
     P = []
-    for i in range(1, 400):
+    for i in range(400):
         P.append((M * A[i] + M * g * ma.sin(alpha[i]) + frottements()[i]) * V[i])
     for i in range(100):
-        P.append((M * A[i] + M * g * ma.sin(alpha[i]) - frottements()[i]) * V[i])
+        P.append(0)
     return P
 
+
+P = Puissance_Train()
 
 ##Calcul Puissance Électrique##
 
@@ -70,13 +72,17 @@ W_train = []
 # Calcul Puissance Électrique
 
 for i in range(500):
-    U_train.append(Ud0 - Is2 / (Rs1 + Rl * X[i]))
+    U_train.append(Ud0 - Is2 * (Rs2 + Rl *(X[500]- X[i]))
     I_train.append(Is1 + Is2)
-    W_train = U_train[i] * I_train[i]
+    W_train.append(U_train[i] * I_train[i])
 
 
 ##Calcul des courbes
 plt.figure()
-plt.plot(W_train, X)
-plt.title("Tension en fonction de la position")
+plt.plot(X, U_train)
+plt.show()
+plt.figure()
+plt.plot(X, P)
+plt.title("Puissance en fonction de la position")
+
 plt.show()
