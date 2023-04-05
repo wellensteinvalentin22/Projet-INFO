@@ -57,22 +57,25 @@ def Puissance_Train():
 #Définition des variables pour le circuit électrique
 Is1 = 1200#courant provenant du cable venant de la sous-station (SS) 1
 Is2 = 1200 #courant provenant du cable venant de la SS2
-Rs1 = #résistance interne des SS
+Rs1 = #résistance interne des SS négligeable
 Rs2 = Rs1
-Rl = 0.016 * 10**(-3)#résistance linéique cable entre SS1 et train (en Ohm par m)
+Rl = 0.016* 10**(-3)#résistance linéique cable entre SS1 et train (en Ohm par m)
 Ud0 = 835 #en V
 L = 5000 #en m, distance entre chaque sous-station
 U_train = []
 I_train = []
+W_train = []
 
 #Calcul Puissance Électrique
-def Puissance_Electrique ():
-    U_train = Ud0-Is2/(Rs2)
-    I_train = Is1 + Is2
-    return U_train * I_train
+
+for i in range (500):
+    U_train.append(Ud0-Is2/(Rl * X[i]))
+    I_train.append( Is1 + Is2 )
+    W_train = U_train[i]*I_train[i]
+
 
 ##Calcul des courbes
 plt.figure()
-# plt.plot(puissance,X)
-#plt.title("Tension en fonction de la position")
-#plt.show()
+plt.plot(W_train,X)
+plt.title("Tension en fonction de la position")
+plt.show()
