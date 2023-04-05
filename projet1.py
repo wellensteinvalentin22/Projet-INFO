@@ -50,7 +50,7 @@ def Puissance_Train():
     for i in range(400):
         P.append((M * A[i] + M * g * ma.sin(alpha[i]) + frottements()[i]) * V[i])
     for i in range(400,499): #Calcul Puissance récupérée par freinage
-        P.append(-0.20*(0,5*M*(V[i]**2-V[i+1]**2))) #On récupère 20% de l'énergie cinétique, et on prends l'accélération et la vitesse au point juste avant de freiner
+        P.append(-0.20*(0,5*M*(V[i]**2-V[i+1]**2))/tau) #On récupère 20% de l'énergie cinétique, et on prends l'accélération et la vitesse au point juste avant de freiner
     return P
 
 P = Puissance_Train()
