@@ -70,7 +70,7 @@ W_train = []
 # Calcul Puissance Électrique
 
 for i in range(500):
-    U_train.append(Ud0 - Is2 / (Rl * X[i]))
+    U_train.append(Ud0 - Is2 / (Rs1 + Rl * X[i]))
     I_train.append(Is1 + Is2)
     W_train = U_train[i] * I_train[i]
 
