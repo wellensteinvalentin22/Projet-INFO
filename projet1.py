@@ -81,9 +81,9 @@ for i in range(500):
 ##Calcul des courbes
 plt.figure()
 plt.plot(X, U_train)
-plt.show()
-plt.figure()
+plt.xlabel("Position du train")
+plt.ylabel("Puissance fournie par le réseau")
 plt.plot(X, P)
-plt.title("Puissance en fonction de la position")
-
+plt.xlabel("Position du train")
+plt.ylabel("Puissance nécessaire pour faire avancer le train")
 plt.show()
