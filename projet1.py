@@ -5,14 +5,14 @@ import math as ma
 import matplotlib.pyplot as plt
 
 
-##Définition des variables##
+#Définition des variables##
 M = 140000  # en kg, pour une rame
 g = 9.81
 alpha = [0 for e in range(500)]
 tau = 1  # pas de temps
 
 
-##Calcul de la vitesse##
+#Calcul de la vitesse##
 # Hypothèse : profil de vitesse trapézoïdal, vitesse max de 60 km/h atteinte au 100ème pas de temps. On freine au 400 pas de temps.
 V = []
 for i in range(25):
@@ -36,7 +36,7 @@ for i in range(450):
 for i in range(25):
     A.append(-0.8)
 
-##Calcul Puissance Train##
+#Calcul Puissance Train##
 def frottements():
     a = 0.3
     b = 0.1
@@ -50,7 +50,7 @@ def Puissance_Train():
     for i in range(400):
         P.append((M * A[i] + M * g * ma.sin(alpha[i]) + frottements()[i]) * V[i])
     for i in range(400,499): #Calcul Puissance récupérée par freinage
-        P.append(-0.20*(0,5*M*(V[i]**2-V[i+1]**2))/tau) #On récupère 20% de l'énergie cinétique, et on prends l'accélération et la vitesse au point juste avant de freiner
+        P.append(-0.20*(0.5*M*(V[i]**2-V[i+1]**2))/tau) #On récupère 20% de l'énergie cinétique, et on prends l'accélération et la vitesse au point juste avant de freiner
     return P
 
 P = Puissance_Train()
@@ -73,7 +73,7 @@ W_train = []
 
 # Calcul Puissance Électrique
 for i in range(500):
-    U_train.append(Ud0 - Is2 * (Rs2 + Rl *(X[500]- X[i]))
+    U_train.append(Ud0 - Is2 * (Rs2 + Rl *(X[500]- X[i])))
     I_train.append(Is1 + Is2)
     W_train.append(U_train[i] * I_train[i])
 
@@ -87,3 +87,5 @@ plt.plot(X, P)
 plt.xlabel("Position du train")
 plt.ylabel("Puissance nécessaire pour faire avancer le train")
 plt.show()
+
+
